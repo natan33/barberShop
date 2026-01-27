@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.services",
     "apps.core",
     "apps.whatsapp",
+    "apps.barbers",
 ]
 
 MIDDLEWARE = [
