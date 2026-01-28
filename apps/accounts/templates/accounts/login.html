@@ -20,7 +20,7 @@
         <form method="post" class="space-y-6">
             {% csrf_token %}
 
-            <!-- Username -->
+            <!-- Usuário -->
             <div>
                 <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
                     Usuário
@@ -28,26 +28,34 @@
                 {{ form.username }}
             </div>
 
-            <!-- Password -->
+            <!-- Senha -->
             <div>
                 <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
                     Senha
                 </label>
                 {{ form.password }}
+
+                <!-- Esqueci minha senha -->
+                <div class="text-right mt-2">
+                    <a href="{% url 'accounts:reset_password' %}"
+                       class="text-xs text-gray-500 hover:text-leather transition">
+                        Esqueci minha senha
+                    </a>
+                </div>
             </div>
 
-            <!-- Button -->
+            <!-- Botão -->
             <button type="submit"
                 class="w-full bg-iron text-white py-3 font-industrial tracking-widest uppercase hover:bg-leather transition shadow-md">
                 Entrar
             </button>
         </form>
 
-        <!-- Extra -->
+        <!-- Cadastro -->
         <div class="text-center mt-6 text-sm text-gray-500">
             <p>
                 Não tem conta?
-                <a href="#" class="text-leather hover:underline">
+                <a href="#" class="text-leather hover:underline font-medium">
                     Cadastre-se
                 </a>
             </p>

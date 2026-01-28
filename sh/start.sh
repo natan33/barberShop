@@ -12,20 +12,12 @@ NC='\033[0m'
 # Caminhos
 VENV_PATH="./venv"
 SOCKET_DIR="ideal_notify"
-PORT=5000
+PORT=8000
 
 start() {
     # execução do Celery Worker para processamento de tarefas em segundo plano
-    echo "Iniciando Celery Worker..."
-    celery -A celery_worker.celery worker -P prefork --max-tasks-per-child=1000 --loglevel=info --detach
-
-    # execução do Celery Beat para agendamento de tarefas periódicas
-    echo "Iniciando Celery Beat..."
-    celery -A celery_worker.celery beat -l info --detach
-
-
-    echo "Iniciando servidor gunicorn."
-    flask run
+    echo "Iniciando servidor Django."
+    python manage.py runserver
 }
 
 stop() {

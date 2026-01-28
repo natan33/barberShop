@@ -12,7 +12,7 @@ COMMIT_MESSAGE=$1
 # Adiciona todos os arquivos
 
 # Faz o commit com a mensagem
-flask db migrate -m "$COMMIT_MESSAGE"
+python manage.py makemigrations $COMMIT_MESSAGE
 
 # Aplica as migrações no banco de dados
-flask db upgrade
+python manage.py migrate

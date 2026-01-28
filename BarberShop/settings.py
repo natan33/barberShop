@@ -142,3 +142,14 @@ LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = 'core:home'
 # Para onde o usuário vai após sair do sistema
 LOGOUT_REDIRECT_URL = "accounts:login"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Quando for para produção, você usará algo assim:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'seu-email@gmail.com'
+# EMAIL_HOST_PASSWORD = 'sua-senha-de-app'
