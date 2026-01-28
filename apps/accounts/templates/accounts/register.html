@@ -1,0 +1,152 @@
+{% extends "layouts/base.html" %}
+{% block title %}Cadastro | BarberShop{% endblock %}
+
+{% block content %}
+<div class="flex justify-center my-12">
+    <div class="w-full max-w-2xl bg-white border border-gray-200 rounded-lg shadow-lg p-10">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h2 class="font-industrial text-3xl uppercase tracking-widest text-iron">
+                Criar Conta
+            </h2>
+            <p class="text-sm text-gray-500 mt-2">
+                Cadastre-se para gerenciar seus agendamentos
+            </p>
+        </div>
+
+        <!-- Form -->
+        <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% csrf_token %}
+
+            <!-- Nome -->
+            <div class="md:col-span-2">
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    Nome Completo
+                </label>
+                <input type="text" name="full_name" required placeholder="Ex: Natan Silva" class="w-full px-4 py-3 border border-gray-300 rounded-md bg-white text-gray-800
+                              focus:outline-none focus:ring-2 focus:ring-leather focus:border-leather">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    E-mail
+                </label>
+                {{ form.email }}
+            </div>
+
+            <!-- Usuário -->
+            <div>
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    Usuário
+                </label>
+                {{ form.username }}
+            </div>
+
+
+
+            <!-- Telefone -->
+            <div class="md:col-span-2">
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    Telefone / WhatsApp
+                </label>
+                {{ form.phone }}
+            </div>
+
+            <!-- Senhas -->
+            {% for field in form %}
+            {% if "password" in field.name %}
+            <div>
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.errors %}
+                <p class="text-red-600 text-xs mt-1">
+                    {{ field.errors.0 }}
+                </p>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Botão -->
+            <div class="md:col-span-2 mt-6">
+                <button type="submit" class="w-full bg-iron text-white py-4 font-industrial tracking-widest uppercase
+                           hover:bg-leather transition shadow-md">
+                    Finalizar Cadastro
+                </button>
+            </div>
+        </form>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-sm text-gray-500">
+            Já tem conta?
+            <a href="{% url 'accounts:login' %}" class="text-leather hover:underline font-medium">
+                Fazer login
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const phoneInput = document.querySelector('input[name="phone"]');
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+            } else {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+
+            e.target.value = value;
+        });
+    }
+
+    const emailField = document.querySelector('input[name="email"]');
+    const usernameField = document.querySelector('input[name="username"]');
+
+    emailField.addEventListener('input', function () {
+        // Pega o valor do e-mail
+        let emailValue = this.value;
+
+        if (emailValue.includes('@')) {
+            // Extrai tudo antes do @
+            let suggested = emailValue.split('@')[0];
+
+            // Limpa caracteres especiais e deixa minúsculo
+            suggested = suggested.toLowerCase().replace(/[^a-z0-9_.]/g, '');
+
+            // Preenche o campo de username automaticamente
+            usernameField.value = suggested;
+        }
+    });
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    emailField.addEventListener('blur', function () {
+        if (!validateEmail(this.value)) {
+            this.classList.add('border-red-500'); // Fica vermelho se estiver errado
+            // Você pode mostrar um span de erro aqui
+        } else {
+            this.classList.remove('border-red-500');
+        }
+    });
+
+</script>
+{% endblock %}

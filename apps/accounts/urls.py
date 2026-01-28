@@ -1,7 +1,7 @@
 from django.urls import path
 
 from apps.accounts.forms import CustomSetPasswordForm
-from .views import login_view, logout_view, profile_view
+from .views import login_view, logout_view, profile_view,register_view
 from django.contrib.auth import views as auth_views
 
 app_name = "accounts"
@@ -10,6 +10,7 @@ urlpatterns = [
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
     path("perfil/", profile_view, name="profile"),
+    path('registrar/', register_view, name='register'),
 
     path('reset_password/', auth_views.PasswordResetView.as_view(
         template_name="accounts/password_reset.html",
