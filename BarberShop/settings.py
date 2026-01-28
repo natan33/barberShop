@@ -136,6 +136,9 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 AUTH_USER_MODEL = "accounts.User"
 
+# Nome da URL ou caminho para onde o usuário vai se não estiver logado
 LOGIN_URL = "accounts:login"
-LOGIN_REDIRECT_URL = "accounts:profile"
+# Para onde o usuário vai após digitar usuário e senha com sucesso
+LOGIN_REDIRECT_URL = 'core:home'
+# Para onde o usuário vai após sair do sistema
 LOGOUT_REDIRECT_URL = "accounts:login"

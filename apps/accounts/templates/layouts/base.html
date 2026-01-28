@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BarberShop | Industrial{% endblock %}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wood-dark': '#1f140a',
+                        'iron': '#1f1f1f',
+                        'concrete': '#f4f4f4',
+                        'leather': '#b87333',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .font-industrial { font-family: 'Oswald', sans-serif; }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-concrete min-h-screen flex flex-col antialiased text-gray-800">
+
+<!-- HEADER -->
+<header class="bg-iron border-b border-gray-700">
+    <nav class="container mx-auto px-6 py-5 flex items-center justify-between">
+
+        <a href="/" class="flex items-center gap-3">
+            <i class="fas fa-hand-scissors text-2xl text-leather"></i>
+            <span class="text-2xl font-industrial text-white tracking-wider uppercase">
+                BarberShop
+            </span>
+        </a>
+
+        <div class="flex items-center space-x-8 font-industrial text-sm tracking-widest">
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:profile' %}" class="text-gray-300 hover:text-leather transition flex items-center gap-2">
+                    <i class="fas fa-user-cog"></i> PERFIL
+                </a>
+                <a href="{% url 'accounts:logout' %}" 
+                   class="px-4 py-2 border border-gray-600 text-gray-300 hover:bg-red-900 hover:border-red-900 transition">
+                    SAIR
+                </a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="text-gray-300 hover:text-leather transition">
+                    LOGIN
+                </a>
+                <a href="#" 
+                   class="bg-leather text-white px-6 py-2 hover:brightness-110 transition shadow-md">
+                    AGENDAR
+                </a>
+            {% endif %}
+        </div>
+
+    </nav>
+</header>
+
+<!-- INFO BAR -->
+<div class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-6 py-2 flex justify-between items-center text-xs uppercase tracking-wider text-gray-500">
+        <span class="flex items-center gap-2">
+            <i class="fas fa-lock"></i> Ambiente Seguro
+        </span>
+        <span>
+            {% if user.is_authenticated %}{{ user.username }}{% endif %}
+        </span>
+    </div>
+</div>
+
+<!-- MAIN -->
+<main class="container mx-auto px-6 py-16 flex-grow">
+    <div class="max-w-4xl mx-auto">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-iron border-t border-gray-700">
+    <div class="container mx-auto px-6 py-8 text-center">
+        <p class="text-gray-400 font-industrial tracking-widest text-xs">
+            &copy; 2026 BARBERSHOP · INDUSTRIAL STYLE
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

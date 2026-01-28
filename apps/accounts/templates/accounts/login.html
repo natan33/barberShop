@@ -1,16 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-<h2>Login</h2>
+{% extends "layouts/base.html" %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Entrar</button>
-</form>
+{% block title %}Login | BarberShop{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="flex justify-center">
+    <div class="w-full max-w-md bg-white shadow-lg border border-gray-200 rounded-lg p-8">
+
+        <!-- Título -->
+        <div class="text-center mb-8">
+            <h1 class="font-industrial text-3xl tracking-widest uppercase text-iron">
+                Login
+            </h1>
+            <p class="text-sm text-gray-500 mt-2">
+                Acesse sua conta para gerenciar seus agendamentos
+            </p>
+        </div>
+
+        <!-- Form -->
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div>
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    Usuário
+                </label>
+                {{ form.username }}
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block text-sm uppercase tracking-wider text-gray-600 mb-1">
+                    Senha
+                </label>
+                {{ form.password }}
+            </div>
+
+            <!-- Button -->
+            <button type="submit"
+                class="w-full bg-iron text-white py-3 font-industrial tracking-widest uppercase hover:bg-leather transition shadow-md">
+                Entrar
+            </button>
+        </form>
+
+        <!-- Extra -->
+        <div class="text-center mt-6 text-sm text-gray-500">
+            <p>
+                Não tem conta?
+                <a href="#" class="text-leather hover:underline">
+                    Cadastre-se
+                </a>
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -6,13 +6,13 @@ from .forms import LoginForm
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect("accounts:profile")
+        return redirect(request.GET.get('next', 'core:home'))
 
     form = LoginForm(request, data=request.POST or None)
 
     if request.method == "POST" and form.is_valid():
         login(request, form.get_user())
-        return redirect("accounts:profile")
+        return redirect(request.GET.get('next', 'core:home'))
 
     return render(request, "accounts/login.html", {"form": form})
 
